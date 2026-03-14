@@ -1,0 +1,54 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "workspace-ui",
+  "homepage": "https://localhost:4443",
+  "items": [
+    {
+      "name": "user-card",
+      "type": "registry:block",
+      "title": "User Card",
+      "description": "用户信息展示卡片，支持头像、姓名、邮箱、角色等信息展示，包含多种尺寸和变体。",
+      "dependencies": [
+        "lucide-react",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "card",
+        "avatar",
+        "badge",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/business/user-card/index.tsx",
+          "target": "components/business/user-card/user-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stat-card",
+      "type": "registry:block",
+      "title": "Stat Card",
+      "description": "统计数据展示卡片，支持数值、趋势、图标等信息展示，适用于仪表盘场景。",
+      "dependencies": [
+        "lucide-react",
+        "class-variance-authority",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "card"
+      ],
+      "files": [
+        {
+          "path": "src/components/business/stat-card/index.tsx",
+          "target": "components/business/stat-card/stat-card.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

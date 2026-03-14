@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "user-card",
+  "title": "User Card",
+  "description": "用户信息展示卡片，支持头像、姓名、邮箱、角色等信息展示，包含多种尺寸和变体。",
+  "dependencies": [
+    "lucide-react",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge"
+  ],
+  "registryDependencies": [
+    "card",
+    "avatar",
+    "badge",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "src/components/business/user-card/index.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"@workspace/ui/lib/utils\"\nimport { Button } from \"@workspace/ui/components/button\"\nimport { Card } from \"@workspace/ui/components/card\"\nimport { Avatar, AvatarFallback, AvatarImage } from \"@workspace/ui/components/avatar\"\nimport { Badge } from \"@workspace/ui/components/badge\"\n\nconst userCardVariants = cva(\n  \"relative flex flex-col overflow-hidden transition-all\",\n  {\n    variants: {\n      variant: {\n        default: \"shadow-sm hover:shadow-md border border-border bg-card\",\n        outlined: \"border-2 hover:border-primary/50 bg-card\",\n        elevated: \"shadow-lg hover:shadow-xl border border-border bg-card\",\n      },\n      size: {\n        sm: \"p-3 gap-2\",\n        default: \"p-4 gap-3\",\n        lg: \"p-6 gap-4\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  }\n)\n\nexport interface UserCardProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof userCardVariants> {\n  /** 用户名称 */\n  name: string\n  /** 用户头像 URL */\n  avatar?: string\n  /** 用户邮箱 */\n  email?: string\n  /** 用户角色/职位 */\n  role?: string\n  /** 是否显示操作按钮 */\n  showActions?: boolean\n  /** 关注按钮点击回调 */\n  onFollow?: () => void\n  /** 消息按钮点击回调 */\n  onMessage?: () => void\n}\n\n/**\n * UserCard 业务组件\n * 用于展示用户信息的卡片组件\n */\nfunction UserCard({\n  className,\n  variant,\n  size,\n  name,\n  avatar,\n  email,\n  role,\n  showActions = true,\n  onFollow,\n  onMessage,\n  ...props\n}: UserCardProps) {\n  return (\n    <Card\n      className={cn(userCardVariants({ variant, size, className }))}\n      {...props}\n    >\n      <div className=\"flex items-center gap-3\">\n        <Avatar className=\"h-12 w-12 shrink-0\">\n          <AvatarImage src={avatar} alt={name} />\n          <AvatarFallback className=\"bg-primary/10 text-primary font-semibold\">\n            {name.charAt(0).toUpperCase()}\n          </AvatarFallback>\n        </Avatar>\n        <div className=\"min-w-0 flex-1\">\n          <div className=\"flex items-center gap-2\">\n            <h3 className=\"truncate font-medium text-foreground\">{name}</h3>\n            {role && (\n              <Badge variant=\"secondary\" className=\"px-1 text-[10px] h-4\">\n                {role}\n              </Badge>\n            )}\n          </div>\n          {email && (\n            <p className=\"truncate text-xs text-muted-foreground\">{email}</p>\n          )}\n        </div>\n      </div>\n\n      {showActions && (\n        <div className=\"flex gap-2 pt-2\">\n          <Button\n            variant=\"default\"\n            size=\"sm\"\n            className=\"flex-1\"\n            onClick={onFollow}\n          >\n            关注\n          </Button>\n          <Button\n            variant=\"outline\"\n            size=\"sm\"\n            className=\"flex-1\"\n            onClick={onMessage}\n          >\n            消息\n          </Button>\n        </div>\n      )}\n    </Card>\n  )\n}\n\nexport { UserCard, userCardVariants }\n",
+      "type": "registry:component",
+      "target": "components/business/user-card/user-card.tsx"
+    }
+  ],
+  "type": "registry:block"
+}
