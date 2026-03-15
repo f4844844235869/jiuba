@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Input Search 合并展示</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#1b1d22",
+            mist: "#f6f7fb",
+            panel: "#ffffff",
+            line: "#d8deea",
+            accent: "#f06418",
+            accentSoft: "#fff1e8",
+            info: "#2f6df6",
+            night: "#111318",
+          },
+          fontFamily: {
+            display: ["Manrope", "Noto Sans SC", "sans-serif"],
+          },
+          boxShadow: {
+            card: "0 16px 50px rgba(17, 19, 24, 0.08)",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      font-family: "Manrope", "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(240, 100, 24, 0.12), transparent 28%),
+        linear-gradient(180deg, #f8f3ee 0%, #f6f7fb 42%, #eef2f9 100%);
+    }
+
+    .demo-card {
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(18px);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen text-ink">
+  <main class="mx-auto max-w-7xl px-6 py-12 lg:px-10 lg:py-16">
+    <header class="mb-12 rounded-[28px] border border-white/70 bg-night px-8 py-10 text-white shadow-card">
+      <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+        <div class="max-w-3xl">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-[0.28em] text-white/60">Input Search Merge</p>
+          <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl">将两个页面里的搜索 Input 合成为一个展示页</h1>
+          <p class="mt-4 max-w-2xl text-sm leading-6 text-white/72 lg:text-base">
+            这里整合了 `stitch (12)` 与 `stitch (13)` 的所有输入框方案，统一为一个可对比浏览的桌面端展示页面。
+          </p>
+        </div>
+        <div class="rounded-2xl border border-white/12 bg-white/6 px-5 py-4 text-sm text-white/72">
+          <p>来源页面</p>
+          <p class="mt-1 font-semibold text-white">stitch (12) + stitch (13)</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="mb-8">
+      <div class="mb-5 flex items-center gap-3">
+        <span
+          class="rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-white">基础搜索</span>
+        <h2 class="text-2xl font-bold tracking-tight">常规输入框形态</h2>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-2">
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Variant A</p>
+          <h3 class="mt-2 text-xl font-bold">标准搜索框</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">保留常见搜索输入体验，适合信息检索入口。</p>
+          <div class="mt-6 relative">
+            <span
+              class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+            <input type="text" placeholder="搜索文档、文件及更多..."
+              class="block w-full rounded-2xl border border-line bg-panel py-3 pl-12 pr-4 text-sm text-slate-700 shadow-sm outline-none transition focus:border-info focus:ring-4 focus:ring-info/10" />
+          </div>
+        </article>
+
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Variant B</p>
+          <h3 class="mt-2 text-xl font-bold">带按钮搜索框</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">输入与操作按钮合并成完整搜索动作区。</p>
+          <div
+            class="mt-6 flex overflow-hidden rounded-full border border-line bg-panel shadow-sm focus-within:ring-4 focus-within:ring-info/10">
+            <input type="text" placeholder="搜索关键词..."
+              class="w-full border-0 bg-transparent px-5 py-3 text-sm text-slate-700 outline-none focus:ring-0" />
+            <button class="bg-info px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">搜索</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <div class="mb-5 flex items-center gap-3">
+        <span
+          class="rounded-full bg-slate-900 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-white">标签搜索</span>
+        <h2 class="text-2xl font-bold tracking-tight">筛选标签与 Input 融合</h2>
+      </div>
+      <div class="grid gap-6 xl:grid-cols-2">
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Variant C</p>
+          <h3 class="mt-2 text-xl font-bold">标签前置排列</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">将筛选条件放在最前，输入框跟随其后，适合条件较少时快速追加查询。</p>
+          <div
+            class="mt-6 flex min-h-[58px] w-full items-center rounded-2xl border border-line bg-mist px-3 py-2 transition focus-within:border-accent focus-within:ring-4 focus-within:ring-accent/10">
+            <span class="material-symbols-outlined mr-2 text-slate-400">search</span>
+            <div class="flex flex-1 flex-wrap items-center gap-2">
+              <div
+                class="flex items-center gap-1 rounded-xl border border-accent/20 bg-accentSoft px-2.5 py-1 text-sm font-medium text-accent">
+                <span>类型: 设计</span>
+                <span class="material-symbols-outlined text-[16px]">close</span>
+              </div>
+              <div
+                class="flex items-center gap-1 rounded-xl border border-accent/20 bg-accentSoft px-2.5 py-1 text-sm font-medium text-accent">
+                <span>状态: 进行中</span>
+                <span class="material-symbols-outlined text-[16px]">close</span>
+              </div>
+              <input type="text" placeholder="继续搜索..."
+                class="min-w-[120px] flex-1 border-0 bg-transparent p-0 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:ring-0" />
+            </div>
+          </div>
+        </article>
+
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Variant D</p>
+          <h3 class="mt-2 text-xl font-bold">标签溢出处理</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">标签过多时用 `+N` 收束，保障输入框仍然可用。</p>
+          <div class="mt-6 flex min-h-[58px] w-full items-center rounded-2xl border border-line bg-mist px-3 py-2">
+            <span class="material-symbols-outlined mr-2 text-slate-400">search</span>
+            <div class="flex flex-1 items-center gap-2 overflow-hidden">
+              <div class="whitespace-nowrap rounded-xl bg-slate-200 px-2.5 py-1 text-sm font-medium text-slate-700">项目:
+                阿波罗计划</div>
+              <div class="whitespace-nowrap rounded-xl bg-slate-200 px-2.5 py-1 text-sm font-medium text-slate-700">优先级:
+                高</div>
+              <div
+                class="whitespace-nowrap rounded-xl border border-accent/20 bg-accentSoft px-2.5 py-1 text-sm font-bold text-accent">
+                +3</div>
+              <input type="text" value="Logo"
+                class="min-w-[80px] flex-1 border-0 bg-transparent p-0 text-sm text-slate-700 outline-none focus:ring-0" />
+            </div>
+            <button class="ml-2 text-slate-400 transition hover:text-accent">
+              <span class="material-symbols-outlined">cancel</span>
+            </button>
+          </div>
+        </article>
+
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Variant E</p>
+          <h3 class="mt-2 text-xl font-bold">标签后置操作</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">搜索优先，标签与操作按钮放在输入内容后方，形成连续操作区。</p>
+          <div
+            class="mt-6 flex min-h-[58px] w-full items-center rounded-2xl border border-line bg-mist px-4 py-2 transition focus-within:border-accent">
+            <input type="text" placeholder="输入关键词或添加筛选器..."
+              class="flex-1 border-0 bg-transparent p-0 text-base text-slate-700 outline-none placeholder:text-slate-400 focus:ring-0" />
+            <div class="ml-3 flex items-center gap-2 border-l border-slate-200 pl-3">
+              <div
+                class="flex items-center gap-1 rounded-full border border-accent/20 bg-accentSoft px-2 py-1 text-xs font-medium text-accent">
+                <span>近期活跃</span>
+                <span class="material-symbols-outlined text-[14px]">close</span>
+              </div>
+              <button class="rounded-lg p-1.5 text-slate-500 transition hover:bg-slate-200 hover:text-accent">
+                <span class="material-symbols-outlined text-[20px]">filter_list</span>
+              </button>
+              <button class="rounded-lg bg-accent p-1.5 text-white transition hover:opacity-90">
+                <span class="material-symbols-outlined text-[20px]">search</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Variant F</p>
+          <h3 class="mt-2 text-xl font-bold">筛选前后状态对比</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">同一个搜索结构展示初始状态与带筛选标签后的状态。</p>
+          <div class="mt-6 space-y-4">
+            <div>
+              <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">筛选前</p>
+              <div
+                class="flex min-h-[48px] items-center rounded-2xl border border-line bg-[#f0f2f5] px-3 py-2 shadow-sm focus-within:ring-4 focus-within:ring-info/10">
+                <span class="material-symbols-outlined mr-2 text-slate-400">search</span>
+                <input type="text" placeholder="搜索工具..."
+                  class="flex-1 border-0 bg-transparent p-0 text-base text-slate-600 outline-none placeholder:text-slate-400 focus:ring-0" />
+                <div class="ml-2 flex items-center gap-1.5">
+                  <div class="h-5 w-px bg-slate-300"></div>
+                  <button class="p-1 text-slate-400 transition hover:text-info">
+                    <span class="material-symbols-outlined text-[20px]">filter_alt</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">筛选后</p>
+              <div
+                class="flex min-h-[48px] items-center rounded-2xl border border-line bg-[#f0f2f5] px-3 py-2 shadow-sm focus-within:ring-4 focus-within:ring-info/10">
+                <span class="material-symbols-outlined mr-2 text-slate-400">search</span>
+                <input type="text" placeholder="搜索工具..."
+                  class="min-w-[72px] flex-1 border-0 bg-transparent p-0 text-base text-slate-600 outline-none placeholder:text-slate-400 focus:ring-0" />
+                <div class="ml-2 flex items-center gap-2 overflow-hidden">
+                  <div
+                    class="flex max-w-[220px] items-center gap-1 rounded-xl border border-slate-200 bg-white px-2 py-1 shadow-sm">
+                    <span class="material-symbols-outlined text-[16px] text-slate-500">sell</span>
+                    <span class="truncate text-sm font-medium text-slate-700">Agent, RAG</span>
+                    <span class="text-xs font-semibold text-info">+2</span>
+                    <span class="material-symbols-outlined text-[16px] text-slate-400">close</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <div class="mb-5 flex items-center gap-3">
+        <span
+          class="rounded-full bg-info px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-white">状态补充</span>
+        <h2 class="text-2xl font-bold tracking-tight">搜索状态链路</h2>
+      </div>
+      <div class="grid gap-6 xl:grid-cols-2">
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card xl:col-span-2">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">State Flow</p>
+          <h3 class="mt-2 text-xl font-bold">空态、输入中、加载中、无结果</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">把搜索框从“静态样式”补成“真实产品流程”，更方便评审交互完整度。</p>
+          <div class="mt-6 grid gap-4 lg:grid-cols-2 2xl:grid-cols-4">
+            <div class="rounded-2xl border border-line bg-white p-4">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">空态</p>
+              <div class="flex min-h-[50px] items-center rounded-2xl border border-line bg-panel px-4">
+                <span class="material-symbols-outlined mr-3 text-slate-400">search</span>
+                <input type="text" placeholder="搜索项目、文档、成员..."
+                  class="flex-1 border-0 bg-transparent p-0 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:ring-0" />
+              </div>
+              <p class="mt-3 text-xs leading-5 text-slate-400">适合首页或全局导航入口，先给出范围感知。</p>
+            </div>
+
+            <div class="rounded-2xl border border-line bg-white p-4">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">输入中</p>
+              <div class="flex min-h-[50px] items-center rounded-2xl border border-info bg-panel px-4 ring-4 ring-info/10">
+                <span class="material-symbols-outlined mr-3 text-info">search</span>
+                <input type="text" value="权限配置"
+                  class="flex-1 border-0 bg-transparent p-0 text-sm text-slate-700 outline-none focus:ring-0" />
+              </div>
+              <p class="mt-3 text-xs leading-5 text-slate-400">高亮聚焦态，适合搭配即时联想或最近记录。</p>
+            </div>
+
+            <div class="rounded-2xl border border-line bg-white p-4">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">加载中</p>
+              <div class="flex min-h-[50px] items-center rounded-2xl border border-line bg-panel px-4">
+                <span class="material-symbols-outlined mr-3 text-slate-400">search</span>
+                <input type="text" value="报表中心"
+                  class="flex-1 border-0 bg-transparent p-0 text-sm text-slate-700 outline-none focus:ring-0" />
+                <span class="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-info"></span>
+              </div>
+              <p class="mt-3 text-xs leading-5 text-slate-400">适合远程检索、知识库查询或跨空间搜索。</p>
+            </div>
+
+            <div class="rounded-2xl border border-amber-200 bg-amber-50/70 p-4">
+              <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-amber-600">无结果</p>
+              <div class="flex min-h-[50px] items-center rounded-2xl border border-amber-200 bg-white px-4">
+                <span class="material-symbols-outlined mr-3 text-amber-500">search_off</span>
+                <input type="text" value="不存在的关键词"
+                  class="flex-1 border-0 bg-transparent p-0 text-sm text-slate-700 outline-none focus:ring-0" />
+              </div>
+              <p class="mt-3 text-xs leading-5 text-amber-700">建议同时给出“换个关键词”或“清空筛选”动作。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Variant G</p>
+          <h3 class="mt-2 text-xl font-bold">错误态输入框</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">适合搜索语法错误、筛选条件冲突、或请求失败后的提示。</p>
+          <div class="mt-6">
+            <label class="mb-2 block text-xs font-semibold uppercase tracking-[0.18em] text-rose-500">搜索表达式错误</label>
+            <div class="flex min-h-[52px] items-center rounded-2xl border border-rose-300 bg-rose-50/70 px-4 ring-4 ring-rose-100">
+              <span class="material-symbols-outlined mr-3 text-rose-500">error</span>
+              <input type="text" value="tag:(设计 AND"
+                class="flex-1 border-0 bg-transparent p-0 text-sm text-rose-700 outline-none focus:ring-0" />
+              <button class="text-xs font-semibold text-rose-600 transition hover:text-rose-700">清空</button>
+            </div>
+            <p class="mt-3 text-sm text-rose-600">筛选语法不完整，请检查括号或逻辑连接词。</p>
+          </div>
+        </article>
+
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Variant H</p>
+          <h3 class="mt-2 text-xl font-bold">禁用态输入框</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">适合依赖上游条件、权限限制或数据源尚未选择时的不可操作状态。</p>
+          <div class="mt-6 space-y-4">
+            <div class="flex min-h-[52px] items-center rounded-2xl border border-slate-200 bg-slate-100 px-4 opacity-70">
+              <span class="material-symbols-outlined mr-3 text-slate-400">search</span>
+              <input type="text" placeholder="请先选择工作空间"
+                class="flex-1 border-0 bg-transparent p-0 text-sm text-slate-500 outline-none placeholder:text-slate-500 focus:ring-0"
+                disabled />
+              <button class="cursor-not-allowed rounded-full bg-slate-300 px-4 py-2 text-xs font-semibold text-slate-500" disabled>
+                搜索
+              </button>
+            </div>
+            <p class="text-sm text-slate-500">建议配合辅助说明，明确告诉用户为什么当前不可搜索。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <div class="mb-5 flex items-center gap-3">
+        <span
+          class="rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-white">窄屏表现</span>
+        <h2 class="text-2xl font-bold tracking-tight">移动端 / 小宽度下的标签搜索</h2>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-2">
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Mobile A</p>
+          <h3 class="mt-2 text-xl font-bold">标签换行展示</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">改成稳定两行结构，第一行只保留标签，第二行保留完整输入区域，移动端更容易控制节奏。</p>
+          <div class="mt-6 w-[320px] max-w-full rounded-[28px] border border-slate-200 bg-slate-50 p-4 shadow-sm">
+            <div class="rounded-2xl border border-line bg-white px-3 py-3">
+              <div class="flex flex-wrap gap-2">
+                  <div class="rounded-xl border border-accent/20 bg-accentSoft px-2.5 py-1 text-sm font-medium text-accent">部门: 设计系统</div>
+                  <div class="rounded-xl border border-accent/20 bg-accentSoft px-2.5 py-1 text-sm font-medium text-accent">状态: 已发布</div>
+                  <div class="rounded-xl border border-accent/20 bg-accentSoft px-2.5 py-1 text-sm font-medium text-accent">优先级: 高</div>
+              </div>
+              <div class="mt-3 border-t border-slate-100 pt-3">
+                <input type="text" placeholder="继续输入..."
+                  class="w-full border-0 bg-transparent p-0 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:ring-0" />
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="demo-card rounded-[24px] border border-white/80 p-7 shadow-card">
+          <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Mobile B</p>
+          <h3 class="mt-2 text-xl font-bold">标签折叠展示</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-500">同样采用两行容器，首行用摘要标签控制高度，第二行保持输入与动作按钮稳定。</p>
+          <div class="mt-6 w-[320px] max-w-full rounded-[28px] border border-slate-200 bg-slate-50 p-4 shadow-sm">
+            <div class="rounded-2xl border border-line bg-white px-3 py-3">
+              <div class="flex min-w-0 items-center gap-2 overflow-hidden">
+                  <div class="min-w-0 rounded-xl border border-slate-200 bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-700 truncate">
+                    部门: 国际化设计协作平台
+                  </div>
+                  <div class="shrink-0 rounded-xl border border-accent/20 bg-accentSoft px-2.5 py-1 text-sm font-bold text-accent">+4</div>
+              </div>
+              <div class="mt-3 flex items-center gap-2 border-t border-slate-100 pt-3">
+                <input type="text" placeholder="搜索字段、标签或成员"
+                  class="flex-1 border-0 bg-transparent p-0 text-sm text-slate-700 outline-none placeholder:text-slate-400 focus:ring-0" />
+                <button class="rounded-xl bg-accent px-3 py-2 text-xs font-semibold text-white">搜索</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+</body>
+
+</html>

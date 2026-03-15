@@ -1,0 +1,47 @@
+
+> @workspace/ui@0.0.0 test:run /Users/yimo/Downloads/b_vmzfBKkXLXw-1773453068197/packages/ui
+> vitest run "src/components/business/admin-layout/admin-layout.test.tsx"
+
+
+ RUN  v3.2.4 /Users/yimo/Downloads/b_vmzfBKkXLXw-1773453068197/packages/ui
+
+ ❯ src/components/business/admin-layout/admin-layout.test.tsx (3 tests | 3 failed) 48ms
+   × AdminLayout > renders the layout with children 33ms
+     → window.matchMedia is not a function
+   × AdminLayout > renders breadcrumbs correctly 7ms
+     → window.matchMedia is not a function
+   × AdminLayout > displays user information 7ms
+     → window.matchMedia is not a function
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/business/admin-layout/admin-layout.test.tsx > AdminLayout > renders the layout with children
+ FAIL  src/components/business/admin-layout/admin-layout.test.tsx > AdminLayout > renders breadcrumbs correctly
+ FAIL  src/components/business/admin-layout/admin-layout.test.tsx > AdminLayout > displays user information
+TypeError: window.matchMedia is not a function
+ ❯ src/hooks/use-mobile.ts:9:24
+      7| 
+      8|   React.useEffect(() => {
+      9|     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1…
+       |                        ^
+     10|     const onChange = () => {
+     11|       setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+ ❯ Object.react_stack_bottom_frame ../../node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:25989:20
+ ❯ runWithFiberInDEV ../../node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:874:13
+ ❯ commitHookEffectListMount ../../node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:13249:29
+ ❯ commitHookPassiveMountEffects ../../node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:13336:11
+ ❯ commitPassiveMountOnFiber ../../node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:15484:13
+ ❯ recursivelyTraversePassiveMountEffects ../../node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11
+ ❯ commitPassiveMountOnFiber ../../node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:15718:11
+ ❯ recursivelyTraversePassiveMountEffects ../../node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:15439:11
+ ❯ commitPassiveMountOnFiber ../../node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:15476:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  14:08:45
+   Duration  1.71s (transform 87ms, setup 40ms, collect 1.09s, tests 48ms, environment 287ms, prepare 37ms)
+
+ ELIFECYCLE  Command failed with exit code 1.

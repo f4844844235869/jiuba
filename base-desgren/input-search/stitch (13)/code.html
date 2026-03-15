@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>搜索组件变体 - 桌面端 UI</title>
+<!-- BEGIN: External Resources -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- END: External Resources -->
+<style data-purpose="typography">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+    body {
+      font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    }
+  </style>
+<style data-purpose="custom-layout">
+    /* Custom styles for components that need precise control beyond standard Tailwind utilities */
+    .search-container {
+      max-width: 600px;
+    }
+    .focus-ring {
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+    /* Simple utility for showing/hiding dropdowns without complex JS for demo */
+    .dropdown-content {
+      display: none;
+    }
+    .group-dropdown:focus-within .dropdown-content,
+    .dropdown-content:active {
+      display: block;
+    }
+    /* Tag truncation handling */
+    .tag-container {
+      max-width: 220px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen py-12 px-4">
+<main class="max-w-4xl mx-auto space-y-12">
+<!-- BEGIN: Header -->
+<header class="text-center mb-16">
+<h1 class="text-3xl font-bold tracking-tight text-gray-900">搜索组件库</h1>
+<p class="mt-2 text-lg text-gray-600">适用于桌面端应用程序的简洁、专业的搜索输入框变体。</p>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: VariantSection -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- BEGIN: Variant1 Standard -->
+<section class="space-y-4" data-purpose="search-variant-standard">
+<label class="block text-sm font-semibold text-gray-500 uppercase tracking-wider">标准款</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<!-- Magnifying Glass Icon -->
+<svg class="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm transition-all shadow-sm" placeholder="搜索文档、文件及更多..." type="text"/>
+</div>
+</section>
+<!-- END: Variant1 Standard -->
+<!-- BEGIN: Variant2 With Button -->
+<section class="space-y-4" data-purpose="search-variant-with-button">
+<label class="block text-sm font-semibold text-gray-500 uppercase tracking-wider">带按钮款</label>
+<div class="flex shadow-sm rounded-full overflow-hidden border border-gray-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all">
+<input class="block w-full px-5 py-3 border-none bg-white placeholder-gray-400 focus:ring-0 sm:text-sm" placeholder="搜索关键词..." type="text"/>
+<button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 text-sm font-medium transition-colors">
+            搜索
+          </button>
+</div>
+</section>
+<!-- END: Variant2 With Button -->
+<!-- BEGIN: Variant3 With Filters (Collection) -->
+<section class="space-y-6 md:col-span-2" data-purpose="search-variant-with-filters">
+<label class="block text-sm font-semibold text-gray-500 uppercase tracking-wider">带筛选功能款</label>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Initial State: No selection -->
+<div class="space-y-2">
+<span class="text-xs text-gray-400 font-medium">筛选前 (初始状态)</span>
+<div class="relative group-dropdown">
+<div class="relative flex items-center min-h-[46px] border border-gray-200 rounded-lg bg-[#f0f2f5] px-3 py-1.5 focus-within:ring-2 focus-within:ring-blue-500 focus-within:bg-white transition-all shadow-sm">
+<div class="flex items-center gap-1.5 mr-2">
+<svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="flex-1 min-w-[60px] border-none focus:ring-0 p-0 text-base placeholder-slate-400 bg-transparent text-slate-600" placeholder="搜索工具..." type="text"/>
+<div class="flex items-center gap-1.5 ml-2">
+<div class="h-5 w-[1px] bg-gray-300 mx-0.5"></div>
+<button class="relative p-1 text-slate-400 hover:text-blue-600 transition-colors" title="筛选选项">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Active State: With Tags -->
+<div class="space-y-2">
+<span class="text-xs text-gray-400 font-medium">筛选后 (多选状态)</span>
+<div class="relative group-dropdown">
+<div class="relative flex items-center min-h-[46px] border border-gray-200 rounded-lg bg-[#f0f2f5] px-3 py-1.5 focus-within:ring-2 focus-within:ring-blue-500 focus-within:bg-white transition-all shadow-sm">
+<div class="flex items-center gap-1.5 mr-2">
+<svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="flex-1 min-w-[60px] border-none focus:ring-0 p-0 text-base placeholder-slate-400 bg-transparent text-slate-600" placeholder="搜索工具..." type="text"/>
+<div class="flex items-center gap-2 ml-2 overflow-hidden">
+<div class="flex items-center gap-1 bg-white border border-gray-200 rounded-lg px-2 py-1 shadow-sm max-w-[200px]">
+<svg class="flex-shrink-0 w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<div class="flex items-center whitespace-nowrap overflow-hidden">
+<span class="text-[#334155] font-medium text-sm truncate">Agent, RAG</span>
+<span class="ml-1 text-blue-600 font-semibold text-xs">+2</span>
+</div>
+<button class="flex-shrink-0 ml-1 text-slate-400 hover:text-slate-600">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" fill-rule="evenodd"></path>
+</svg>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-1.5 ml-2">
+<div class="h-5 w-[1px] bg-gray-300 mx-0.5"></div>
+<button class="relative p-1 text-slate-500 hover:text-blue-600 transition-colors" title="筛选选项">
+<svg class="h-5 w-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-blue-500 ring-2 ring-[#f0f2f5] group-focus-within:ring-white"></span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Variant3 With Filters -->
+<!-- BEGIN: Variant4 Active State -->
+<section class="space-y-4" data-purpose="search-variant-active-dropdown">
+<label class="block text-sm font-semibold text-gray-500 uppercase tracking-wider">激活状态</label>
+<div class="relative">
+<!-- Focused Search Bar -->
+<div class="relative z-20">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<svg class="h-5 w-5 text-blue-500" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border-2 border-blue-500 rounded-t-lg bg-white focus:outline-none sm:text-sm shadow-lg" placeholder="开始输入..." type="text"/>
+</div>
+<!-- Dropdown of Recent Searches -->
+<div class="absolute z-10 w-full bg-white border-x-2 border-b-2 border-blue-500 rounded-b-lg shadow-xl overflow-hidden -mt-px">
+<div class="px-3 py-2 bg-gray-50 border-b border-gray-100">
+<span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">最近搜索</span>
+</div>
+<ul class="divide-y divide-gray-50">
+<li>
+<a class="flex items-center px-4 py-3 hover:bg-blue-50 transition-colors group" href="#">
+<svg class="h-4 w-4 text-gray-400 group-hover:text-blue-500 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-sm text-gray-700">2023 年度分析仪表板</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-4 py-3 hover:bg-blue-50 transition-colors group" href="#">
+<svg class="h-4 w-4 text-gray-400 group-hover:text-blue-500 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-sm text-gray-700">用户权限设置</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-4 py-3 hover:bg-blue-50 transition-colors group" href="#">
+<svg class="h-4 w-4 text-gray-400 group-hover:text-blue-500 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-sm text-gray-700">API 文档中心</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- END: Variant4 Active State -->
+</div>
+<!-- END: VariantSection -->
+</main>
+<!-- BEGIN: Interaction Logic -->
+<script data-purpose="interaction-stubs">
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Search variants loaded.');
+
+      // General button logging
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if (!btn.closest('.group-dropdown')) { // Avoid blocking the dropdown logic if it relies on clicks
+             e.preventDefault();
+          }
+          console.log('Action triggered:', btn.title || btn.innerText || 'Search Icon');
+        });
+      });
+    });
+  </script>
+<!-- END: Interaction Logic -->
+</body></html>

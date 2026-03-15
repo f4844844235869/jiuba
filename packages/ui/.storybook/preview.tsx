@@ -1,5 +1,6 @@
 import type { Preview, ReactRenderer } from "@storybook/react"
 import { withThemeByClassName } from "@storybook/addon-themes"
+import { ThemeProvider } from "next-themes"
 import "../src/styles/globals.css"
 
 const preview: Preview = {
@@ -39,9 +40,11 @@ const preview: Preview = {
       defaultTheme: "light",
     }),
     (Story) => (
-      <div className="min-h-[200px] min-w-[300px] p-6 bg-background text-foreground">
-        <Story />
-      </div>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <div className="min-h-[200px] min-w-[300px] p-6 bg-background text-foreground transition-colors duration-300">
+          <Story />
+        </div>
+      </ThemeProvider>
     ),
   ],
 }

@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Noto_Sans } from "next/font/google"
+import { Geist_Mono, Noto_Sans } from "next/font/google"
 
 import "@workspace/ui/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -11,7 +11,7 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
-import { Providers } from "@/components/providers"
+import { AdminShell } from "@/components/admin-shell"
 
 export default function RootLayout({
   children,
@@ -26,7 +26,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeProvider>
-          <Providers>{children}</Providers>
+          <AdminShell>{children}</AdminShell>
         </ThemeProvider>
       </body>
     </html>

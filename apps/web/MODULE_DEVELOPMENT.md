@@ -50,15 +50,16 @@ app/[page-name]/
 | 类型 | 业务组件 (Business Components) | 业务模块 (Business Modules) |
 | :--- | :--- | :--- |
 | **位置** | `packages/ui` (分发层) | `apps/web` (应用层) |
-| **颗粒度** | 积木块（如 UserCard） | 完整楼层（如 UsersManager） |
+| **颗粒度** | 共享页面骨架（如 AdminLayout） | 完整楼层（如 UsersManager） |
 | **复用性** | 极高，抽象程度高 | 较低，专注特定业务逻辑 |
 | **安装** | 通过 `shadcn add` 或直接引用 | 应用内部创建，按需配合 Hook |
 
 ---
 
-## 5. 示例代码参考
+## 5. 当前补充说明
 
-请参考 [apps/web/app/demo/](file:///Users/yimo/Downloads/b_vmzfBKkXLXw-1773453068197/apps/web/app/demo/) 目录下的实现。
-- `use-users-logic.ts` (大脑)
-- `user-list-view.tsx` (身体)
-- `page.tsx` (组装)
+当前 `apps/web` 已移除历史 demo 目录，不再维护单独的模块示例页。
+
+- 页面级模块如果只是一次性验证，直接在目标页面目录内组织 `logic` 和 `view`
+- 如果某块实现开始跨页面复用，优先判断它应回收到 `packages/ui`，还是继续保持页面模块
+- 共享组件的创建、更新、registry 流程由对应 skill 负责，本文件只保留应用层模块组织建议

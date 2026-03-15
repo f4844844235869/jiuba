@@ -4,10 +4,10 @@
   "homepage": "https://localhost:4443",
   "items": [
     {
-      "name": "user-card",
-      "type": "registry:block",
-      "title": "User Card",
-      "description": "用户信息展示卡片，支持头像、姓名、邮箱、角色等信息展示，包含多种尺寸和变体。",
+      "name": "search-input",
+      "type": "registry:component",
+      "title": "Search Input",
+      "description": "基于 shadcn Input 二次开发的增强搜索输入框，支持受控/非受控、清空、回车搜索和加载态。",
       "dependencies": [
         "lucide-react",
         "class-variance-authority",
@@ -15,37 +15,44 @@
         "tailwind-merge"
       ],
       "registryDependencies": [
-        "card",
-        "avatar",
-        "badge",
-        "button"
+        "input"
       ],
       "files": [
         {
-          "path": "src/components/business/user-card/index.tsx",
-          "target": "components/business/user-card/user-card.tsx",
+          "path": "src/components/primitives/search-input/index.tsx",
+          "target": "components/primitives/search-input/search-input.tsx",
           "type": "registry:component"
         }
       ]
     },
     {
-      "name": "stat-card",
+      "name": "admin-layout",
       "type": "registry:block",
-      "title": "Stat Card",
-      "description": "统计数据展示卡片，支持数值、趋势、图标等信息展示，适用于仪表盘场景。",
+      "title": "Admin Layout",
+      "description": "企业级后台布局组件。支持多级菜单、分组、权限守卫、应用切换器、角标、面包屑自动生成、通知中心、主题切换、主色调配置、布局变体持久化、骨架屏、错误边界及路由适配。",
       "dependencies": [
         "lucide-react",
+        "next-themes",
         "class-variance-authority",
         "clsx",
         "tailwind-merge"
       ],
       "registryDependencies": [
-        "card"
+        "sidebar",
+        "sheet",
+        "breadcrumb",
+        "separator",
+        "dropdown-menu",
+        "tooltip",
+        "avatar",
+        "collapsible",
+        "command",
+        "skeleton"
       ],
       "files": [
         {
-          "path": "src/components/business/stat-card/index.tsx",
-          "target": "components/business/stat-card/stat-card.tsx",
+          "path": "src/components/business/admin-layout/index.tsx",
+          "target": "components/business/admin-layout/admin-layout.tsx",
           "type": "registry:component"
         }
       ]

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<title>搜索组件变体展示</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="max-w-4xl mx-auto px-6 py-16">
+<header class="mb-12 border-b border-slate-200 dark:border-slate-800 pb-6">
+<h1 class="text-3xl font-bold tracking-tight mb-2">搜索输入框变体设计</h1>
+<p class="text-slate-500 dark:text-slate-400">展示筛选标签（Filter Tags）与文本输入共存的多种形态</p>
+</header>
+<div class="space-y-16">
+<!-- 变体 1 - 标签前置排列 -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">变体 1</span>
+<h2 class="text-xl font-semibold">标签前置排列</h2>
+</div>
+<p class="text-sm text-slate-500 mb-6">标签排列在最左侧，随后是动态输入区域，适合筛选条件较少的场景。</p>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="relative flex items-center w-full min-h-[56px] px-3 py-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-slate-400 mr-2">search</span>
+<!-- Tags Container -->
+<div class="flex flex-wrap gap-2 items-center">
+<div class="flex items-center gap-1.5 bg-primary/10 dark:bg-primary/20 text-primary px-2.5 py-1 rounded-lg text-sm font-medium border border-primary/20">
+<span>类型: 设计</span>
+<button class="hover:bg-primary/20 rounded-full p-0.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 bg-primary/10 dark:bg-primary/20 text-primary px-2.5 py-1 rounded-lg text-sm font-medium border border-primary/20">
+<span>状态: 进行中</span>
+<button class="hover:bg-primary/20 rounded-full p-0.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<!-- Input Area -->
+<div class="flex-1 min-w-[120px]">
+<input class="w-full bg-transparent border-none focus:ring-0 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 p-0 text-sm" placeholder="继续搜索..." type="text"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 变体 2 - 标签+输入共存（溢出处理） -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">变体 2</span>
+<h2 class="text-xl font-semibold">标签溢出处理 (+N)</h2>
+</div>
+<p class="text-sm text-slate-500 mb-6">当标签过多时，折叠部分标签以保证输入框的可用性和界面的整洁。</p>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="relative flex items-center w-full min-h-[56px] px-3 py-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl">
+<span class="material-symbols-outlined text-slate-400 mr-2">search</span>
+<div class="flex items-center gap-2 overflow-hidden flex-1">
+<div class="flex items-center gap-1.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-1 rounded-lg text-sm font-medium whitespace-nowrap">
+<span>项目: 阿波罗计划</span>
+<button class="hover:bg-slate-300 dark:hover:bg-slate-600 rounded-full p-0.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-2.5 py-1 rounded-lg text-sm font-medium whitespace-nowrap">
+<span>优先级: 高</span>
+<button class="hover:bg-slate-300 dark:hover:bg-slate-600 rounded-full p-0.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<!-- Overflow Indicator -->
+<div class="bg-primary/10 text-primary px-2.5 py-1 rounded-lg text-sm font-bold border border-primary/20 whitespace-nowrap">
+                                +3
+                            </div>
+<div class="flex-1 min-w-[80px]">
+<input class="w-full bg-transparent border-none focus:ring-0 text-slate-900 dark:text-slate-100 p-0 text-sm" type="text" value="Logo"/>
+</div>
+</div>
+<button class="ml-2 text-slate-400 hover:text-primary">
+<span class="material-symbols-outlined">cancel</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 变体 3 - 标签后置操作 -->
+<section>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">变体 3</span>
+<h2 class="text-xl font-semibold">标签后置与混合操作</h2>
+</div>
+<p class="text-sm text-slate-500 mb-6">保持搜索主位，筛选操作和标签位于输入内容之后，强调搜索动作的连续性。</p>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="relative flex items-center w-full min-h-[56px] px-4 py-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus-within:border-primary group">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 p-0 text-base" placeholder="输入关键词或添加筛选器..." type="text"/>
+<div class="flex items-center gap-2 pl-3 border-l border-slate-200 dark:border-slate-700 ml-3">
+<div class="flex items-center gap-1 bg-primary/10 dark:bg-primary/20 text-primary px-2 py-0.5 rounded-full text-xs font-medium border border-primary/20">
+<span>近期活跃</span>
+<span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<button class="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg text-slate-500 dark:text-slate-400 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+<button class="bg-primary text-white p-1.5 rounded-lg flex items-center justify-center hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<footer class="mt-24 pt-8 border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-slate-400 text-xs tracking-widest uppercase">Search UI Variants • Design System</p>
+</footer>
+</div>
+</body></html>
