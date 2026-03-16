@@ -5,9 +5,21 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { usePathname, useRouter } from "next/navigation"
 import { AdminLayout, type AdminLayoutProps } from "@workspace/ui/components/business"
 import {
+  ArrowLeftRight,
+  BookTemplate,
+  Box,
+  BoxesIcon,
+  CreditCard,
   LayoutDashboard,
+  ListOrdered,
+  Package,
   Shield,
+  ShoppingCart,
   Store,
+  Tag,
+  Users2,
+  Wallet,
+  Warehouse,
   Workflow,
 } from "lucide-react"
 
@@ -154,6 +166,27 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       hasAnyPermission(currentUser, ["org.store.read"]) &&
       hasAnyPermission(currentUser, ["org.node.read"])
     const canViewIam = hasAnyPermission(currentUser, ["iam.role.read", "iam.permission.read"])
+    const canViewProductCenter = hasAnyPermission(currentUser, [
+      "product.category.read",
+      "product.product.read",
+      "product.fund_limit.read",
+      "product.gift_template.read",
+    ])
+    const canViewInventory = hasAnyPermission(currentUser, [
+      "inventory.warehouse.read",
+      "inventory.balance.read",
+      "inventory.transaction.read",
+      "inventory.transfer.read",
+    ])
+    const canViewPos = hasAnyPermission(currentUser, [
+      "pos.order.read",
+      "pos.order.create",
+      "pos.shift.read",
+    ])
+    const canViewWallet = hasAnyPermission(currentUser, [
+      "wallet.member.read",
+      "wallet.recharge_plan.read",
+    ])
     const groups: NavGroup[] = [
       {
         label: "后台总览",
@@ -174,6 +207,81 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         label: "权限与关联",
         items: canViewIam ? [{ title: "角色权限", href: "/iam", icon: Shield }] : [],
       },
+      ...(canViewProductCenter
+        ? [
+            {
+              label: "商品中心",
+              items: [
+                ...(hasAnyPermission(currentUser, ["product.category.read"])
+                  ? [{ title: "商品分类", href: "/product/categories", icon: Tag }]
+                  : []),
+                ...(hasAnyPermission(currentUser, ["product.product.read"])
+                  ? [{ title: "商品列表", href: "/product/products", icon: Package }]
+                  : []),
+                ...(hasAnyPermission(currentUser, ["product.fund_limit.read"])
+                  ? [{ title: "资金限制", href: "/product/fund-limits", icon: CreditCard }]
+                  : []),
+                ...(hasAnyPermission(currentUser, ["product.gift_template.read"])
+                  ? [{ title: "赠送模板", href: "/product/gift-templates", icon: BookTemplate }]
+                  : []),
+              ],
+            },
+          ]
+        : []),
+      ...(canViewInventory
+        ? [
+            {
+              label: "库存管理",
+              items: [
+                ...(hasAnyPermission(currentUser, ["inventory.warehouse.read"])
+                  ? [{ title: "仓库管理", href: "/inventory/warehouses", icon: Warehouse }]
+                  : []),
+                ...(hasAnyPermission(currentUser, ["inventory.balance.read"])
+                  ? [{ title: "库存余额", href: "/inventory/balances", icon: BoxesIcon }]
+                  : []),
+                ...(hasAnyPermission(currentUser, ["inventory.transaction.read"])
+                  ? [{ title: "库存流水", href: "/inventory/transactions", icon: ListOrdered }]
+                  : []),
+                ...(hasAnyPermission(currentUser, ["inventory.transfer.read"])
+                  ? [{ title: "调拨管理", href: "/inventory/transfers", icon: ArrowLeftRight }]
+                  : []),
+              ],
+            },
+          ]
+        : []),
+      ...(canViewPos
+        ? [
+            {
+              label: "收银与订单",
+              items: [
+                ...(hasAnyPermission(currentUser, ["pos.order.create"])
+                  ? [{ title: "收银台", href: "/pos/cashier", icon: ShoppingCart }]
+                  : []),
+                ...(hasAnyPermission(currentUser, ["pos.order.read"])
+                  ? [{ title: "订单列表", href: "/pos/orders", icon: Box }]
+                  : []),
+                ...(hasAnyPermission(currentUser, ["pos.shift.read"])
+                  ? [{ title: "交接班管理", href: "/pos/shifts", icon: Workflow }]
+                  : []),
+              ],
+            },
+          ]
+        : []),
+      ...(canViewWallet
+        ? [
+            {
+              label: "会员中心",
+              items: [
+                ...(hasAnyPermission(currentUser, ["wallet.member.read"])
+                  ? [{ title: "会员管理", href: "/wallet/members", icon: Users2 }]
+                  : []),
+                ...(hasAnyPermission(currentUser, ["wallet.recharge_plan.read"])
+                  ? [{ title: "充值方案管理", href: "/wallet/recharge-plans", icon: Wallet }]
+                  : []),
+              ],
+            },
+          ]
+        : []),
     ]
 
     return groups
