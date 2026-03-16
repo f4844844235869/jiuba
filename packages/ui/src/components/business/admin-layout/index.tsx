@@ -89,7 +89,6 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  Trash2,
   Boxes,
 } from "lucide-react";
 import { cn } from "@workspace/ui/lib/utils";
@@ -133,6 +132,10 @@ export interface Notification {
 
 export interface AdminLayoutProps {
   children: React.ReactNode;
+  /** Sidebar app title shown in the top-left app switcher area */
+  appTitle?: string;
+  /** Sidebar app subtitle shown under the title */
+  appSubtitle?: string;
   /** Current user info */
   user?: {
     name: string;
@@ -150,6 +153,10 @@ export interface AdminLayoutProps {
   loading?: boolean;
   /** Notifications to show in the notification drawer */
   notifications?: Notification[];
+  /** Called when a single notification is marked as read */
+  onNotificationRead?: (notification: Notification) => void | Promise<void>;
+  /** Called when all unread notifications are marked as read */
+  onNotificationsReadAll?: (notifications: Notification[]) => void | Promise<void>;
   /** Optional app switcher grid shown when provided */
   apps?: AdminApp[];
   /** Called when user clicks a nav item — use this to integrate with your router */
@@ -357,6 +364,8 @@ function NotifIcon({ type }: { type?: Notification["type"] }) {
 
 export function AdminLayout({
   children,
+  appTitle = "Admin Pro",
+  appSubtitle = "Enterprise Edition",
   user = {
     name: "Yimo",
     email: "yimo@example.com",
@@ -369,6 +378,8 @@ export function AdminLayout({
   defaultVariant = "sidebar",
   loading = false,
   notifications = defaultNotifications,
+  onNotificationRead,
+  onNotificationsReadAll,
   apps,
   onNavigate,
   onAppNavigate,
@@ -381,6 +392,10 @@ export function AdminLayout({
   const [notifList, setNotifList] = React.useState<Notification[]>(notifications);
 
   const { theme, setTheme, resolvedTheme } = useTheme();
+
+  React.useEffect(() => {
+    setNotifList(notifications);
+  }, [notifications]);
 
   const userRoles = user.roles || [];
 
@@ -443,8 +458,47 @@ export function AdminLayout({
 
   // ── Notification helpers ───────────────────────────────────────────────────
   const unreadCount = notifList.filter((n) => !n.read).length;
-  const markAllRead = () => setNotifList((ns) => ns.map((n) => ({ ...n, read: true })));
-  const deleteNotif = (id: string) => setNotifList((ns) => ns.filter((n) => n.id !== id));
+  const markNotificationRead = async (notification: Notification) => {
+    if (notification.read) return;
+
+    setNotifList((ns) =>
+      ns.map((item) =>
+        item.id === notification.id ? { ...item, read: true } : item
+      )
+    );
+
+    try {
+      await onNotificationRead?.(notification);
+    } catch {
+      setNotifList((ns) =>
+        ns.map((item) =>
+          item.id === notification.id ? { ...item, read: false } : item
+        )
+      );
+    }
+  };
+
+  const markAllRead = async () => {
+    const unreadNotifications = notifList.filter((n) => !n.read);
+
+    if (unreadNotifications.length === 0) return;
+
+    setNotifList((ns) => ns.map((n) => ({ ...n, read: true })));
+
+    try {
+      await onNotificationsReadAll?.(unreadNotifications);
+    } catch {
+      setNotifList((ns) =>
+        ns.map((item) => {
+          const shouldRollback = unreadNotifications.some(
+            (notification) => notification.id === item.id
+          );
+
+          return shouldRollback ? { ...item, read: false } : item;
+        })
+      );
+    }
+  };
 
   // ── Nav click handler ─────────────────────────────────────────────────────
   const handleNavClick = (e: React.MouseEvent, item: NavItem) => {
@@ -471,8 +525,8 @@ export function AdminLayout({
                             <CommandIcon className="size-4" />
                           </div>
                           <div className="grid flex-1 text-left text-sm leading-tight">
-                            <span className="truncate font-semibold">Admin Pro</span>
-                            <span className="truncate text-xs opacity-60">Enterprise Edition</span>
+                            <span className="truncate font-semibold">{appTitle}</span>
+                            <span className="truncate text-xs opacity-60">{appSubtitle}</span>
                           </div>
                         </SidebarMenuButton>
                       </DropdownMenuTrigger>
@@ -542,8 +596,8 @@ export function AdminLayout({
                         <CommandIcon className="size-4" />
                       </div>
                       <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-semibold">Admin Pro</span>
-                        <span className="truncate text-xs opacity-60">Enterprise Edition</span>
+                        <span className="truncate font-semibold">{appTitle}</span>
+                        <span className="truncate text-xs opacity-60">{appSubtitle}</span>
                       </div>
                     </SidebarMenuButton>
                   )}
@@ -644,9 +698,12 @@ export function AdminLayout({
           </Sidebar>
 
           {/* ── Main content ────────────────────────────────────────────── */}
-          <SidebarInset className="flex flex-col">
+          <SidebarInset className="flex flex-col relative bg-muted/10">
+            {/* Subtle background decoration */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-primary/5 to-transparent" />
+
             {/* Header */}
-            <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background/80 px-4 backdrop-blur-md transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+            <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between gap-2 border-b bg-background/60 px-4 backdrop-blur-xl transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
               <div className="flex items-center gap-2">
                 <SidebarTrigger className="-ml-1" />
                 <Separator orientation="vertical" className="mr-2 h-4" />
@@ -771,7 +828,7 @@ export function AdminLayout({
             </header>
 
             {/* Content */}
-            <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+            <main className="relative flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 z-0">
               <div className="mx-auto w-full max-w-7xl animate-in fade-in slide-in-from-bottom-3 duration-500">
                 <ContentErrorBoundary>
                   {loading ? <ContentSkeleton /> : children}
@@ -871,12 +928,14 @@ export function AdminLayout({
                         <p className={cn("text-sm leading-snug", !notif.read && "font-semibold")}>
                           {notif.title}
                         </p>
-                        <button
-                          onClick={() => deleteNotif(notif.id)}
-                          className="flex-shrink-0 opacity-0 transition-opacity group-hover:opacity-100"
-                        >
-                          <Trash2 className="size-3.5 text-muted-foreground hover:text-destructive" />
-                        </button>
+                        {!notif.read ? (
+                          <button
+                            onClick={() => void markNotificationRead(notif)}
+                            className="flex-shrink-0 text-[11px] text-muted-foreground opacity-0 transition-opacity hover:text-foreground group-hover:opacity-100"
+                          >
+                            标记已读
+                          </button>
+                        ) : null}
                       </div>
                       {notif.description && (
                         <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">

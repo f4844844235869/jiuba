@@ -1,6 +1,8 @@
+/* global module */
+
 module.exports = {
   workspace: {
-    input: 'http://localhost:8000/openapi.json',
+    input: 'http://127.0.0.1:8000/api/v1/openapi.json',
     output: {
       target: './api/generated/workspace.ts',
       mode: 'tags-split',

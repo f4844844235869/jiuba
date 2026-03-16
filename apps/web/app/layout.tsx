@@ -1,17 +1,15 @@
 import { Geist_Mono, Noto_Sans } from "next/font/google"
 
 import "@workspace/ui/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@workspace/ui/lib/utils";
+import { AppProviders } from "@/components/app-providers"
+import { cn } from "@workspace/ui/lib/utils"
 
-const notoSans = Noto_Sans({variable:'--font-sans'})
+const notoSans = Noto_Sans({ variable: "--font-sans" })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
-
-import { AdminShell } from "@/components/admin-shell"
 
 export default function RootLayout({
   children,
@@ -22,12 +20,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", notoSans.variable)}
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        "font-sans",
+        notoSans.variable
+      )}
     >
       <body>
-        <ThemeProvider>
-          <AdminShell>{children}</AdminShell>
-        </ThemeProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   )

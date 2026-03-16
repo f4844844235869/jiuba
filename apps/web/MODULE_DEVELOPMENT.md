@@ -63,3 +63,20 @@ app/[page-name]/
 - 页面级模块如果只是一次性验证，直接在目标页面目录内组织 `logic` 和 `view`
 - 如果某块实现开始跨页面复用，优先判断它应回收到 `packages/ui`，还是继续保持页面模块
 - 共享组件的创建、更新、registry 流程由对应 skill 负责，本文件只保留应用层模块组织建议
+
+---
+
+## 6. 视图层 (View) 质感与样式规范
+
+为了保持整个后台系统的视觉“质感”和空间层级，摆脱扁平化（“太素”）的观感，编写 `*-view.tsx` 时请遵循以下样式约定：
+
+- **全局背景适配**：系统底层框架 (`AdminLayout`) 已统一采用带微光晕的浅色呼吸背景（`bg-muted/10` 结合顶部渐变 `from-primary/5`）。在编写页面级容器时，请避免强行写死纯色背景，让卡片组件自然融入系统环境。
+- **卡片悬浮与立体感**：作为页面主要内容载体的 `<Card>`，应统一加入阴影和交互过渡效果，使其与全局背景形成前后景的景深关系。
+  ```tsx
+  // 推荐的 Card 样式标准
+  <Card className="border-border/50 shadow-sm transition-shadow hover:shadow-md">
+    <CardHeader>...</CardHeader>
+    <CardContent>...</CardContent>
+  </Card>
+  ```
+- **区域分割与对比度**：利用微妙的背景色差来区分信息区块。例如数据表格的表头 (`TableHeader`) 或某些卡片的头部 (`CardHeader`) 区域，可适当结合 `bg-muted/10` 或 `bg-muted/30` 形成视觉分割，增加界面的层次感。
